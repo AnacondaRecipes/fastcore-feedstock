@@ -21,8 +21,8 @@ requirements:
     - python
     - setuptools
     - wheel
-  run:
     - packaging
+  run:
     - python
 
 test:
