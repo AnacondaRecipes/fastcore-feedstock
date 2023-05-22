@@ -22,16 +22,18 @@ requirements:
     - setuptools
     - wheel
   run:
-    - packaging
     - python
 
 test:
   imports:
     - fastcore
-  commands:
-    - pip check
-  requires:
-    - pip
+  # Upstream incorrectly specifies packaging and pip as run-time deps.
+  # Commenting out pip check for now. 
+  # https://github.com/fastai/fastcore/blob/889d407805e1931d480b83174a057179abbdc7ea/setup.py#L29
+  # commands:
+  #   - pip check
+  # requires:
+  #   - pip
 
 about:
   home: https://fastcore.fast.ai/
