@@ -9,13 +9,19 @@ package:
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/fastcore-{{ version }}.tar.gz
   sha256: f1a2eb04eb7933f3f9eb4064852817df44dc96e20fab5658c14c035815269a3f
+  patches:
+    # Upstream incorrectly specifies packaging and pip as run-time deps.
+    - patches/001_remove_unused_deps.patch
 
 build:
-  number: 0
+  number: 1
   skip: true  # [py<37]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
 requirements:
+  build:
+    - patch  # [not win]
+    - m2-patch  # [win]
   host:
     - pip
     - python
@@ -27,13 +33,10 @@ requirements:
 test:
   imports:
     - fastcore
-  # Upstream incorrectly specifies packaging and pip as run-time deps.
-  # Commenting out pip check for now. 
-  # https://github.com/fastai/fastcore/blob/889d407805e1931d480b83174a057179abbdc7ea/setup.py#L29
-  # commands:
-  #   - pip check
-  # requires:
-  #   - pip
+  commands:
+    - pip check
+  requires:
+    - pip
 
 about:
   home: https://fastcore.fast.ai/
