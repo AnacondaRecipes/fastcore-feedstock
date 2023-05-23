@@ -1,5 +1,5 @@
 {% set name = "fastcore" %}
-{% set version = "1.5.26" %}
+{% set version = "1.5.29" %}
 
 
 package:
@@ -8,35 +8,50 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/fastcore-{{ version }}.tar.gz
-  sha256: aa8cdb3064ced1fd7430a0cb15430cd2f99a4c9e932330c79614229913905697
+  sha256: f1a2eb04eb7933f3f9eb4064852817df44dc96e20fab5658c14c035815269a3f
 
 build:
   number: 0
-  noarch: python
-  script: {{ PYTHON }} -m pip install . -vv
+  skip: true  # [py<37]
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
 
 requirements:
   host:
     - pip
-    - python >=3.6
+    - python
+    - setuptools
+    - wheel
   run:
-    - packaging
-    - pip
-    - python >=3.6
+    - python
 
 test:
   imports:
     - fastcore
-  commands:
-    - pip check
-  requires:
-    - pip
+  # Upstream incorrectly specifies packaging and pip as run-time deps.
+  # Commenting out pip check for now. 
+  # https://github.com/fastai/fastcore/blob/889d407805e1931d480b83174a057179abbdc7ea/setup.py#L29
+  # commands:
+  #   - pip check
+  # requires:
+  #   - pip
 
 about:
-  home: https://github.com/fastai/fastcore/tree/master/
+  home: https://fastcore.fast.ai/
+  dev_url: https://github.com/fastai/fastcore
+  doc_url: https://fastcore.fast.ai/tour.html
   summary: Python supercharged for fastai development
+  description: |
+    Python is a powerful, dynamic language. Rather than bake everything into 
+    the language, it lets the programmer customize it to make it work for them. 
+    fastcore uses this flexibility to add to Python features inspired by other 
+    languages we've loved, like multiple dispatch from Julia, mixins from Ruby, 
+    and currying, binding, and more from Haskell. It also adds some 
+    “missing features” and clean up some rough edges in the Python standard 
+    library, such as simplifying parallel processing, and bringing ideas 
+    from NumPy over to Python's list type.
   license: Apache-2.0
   license_file: LICENSE
+  license_family: Apache
 
 extra:
   recipe-maintainers:
