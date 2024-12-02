@@ -1,5 +1,5 @@
 {% set name = "fastcore" %}
-{% set version = "1.5.29" %}
+{% set version = "1.7.20" %}
 
 
 package:
@@ -8,27 +8,24 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/fastcore-{{ version }}.tar.gz
-  sha256: f1a2eb04eb7933f3f9eb4064852817df44dc96e20fab5658c14c035815269a3f
-  patches:
-    # Upstream incorrectly specifies packaging and pip as run-time deps.
-    - patches/001_remove_unused_deps.patch
+  sha256: 316dcb0e2d5e338e069f338b3c136ca9eb4ce950ca433da2a80952fc5928ddab
 
 build:
-  number: 1
-  skip: true  # [py<37]
+  number: 0
+  skip: true  # [py<38]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
+  entry_points:
+    - py2pyi=fastcore.py2pyi:py2pyi
 
 requirements:
-  build:
-    - patch  # [not win]
-    - m2-patch  # [win]
   host:
     - pip
     - python
-    - setuptools
+    - setuptools >=64.0
     - wheel
   run:
     - python
+    - packaging
 
 test:
   imports:
