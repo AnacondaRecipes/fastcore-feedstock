@@ -1,6 +1,5 @@
 {% set name = "fastcore" %}
-{% set version = "1.9.2" %}
-
+{% set version = "1.12.11" %}
 
 package:
   name: {{ name }}
@@ -8,24 +7,23 @@ package:
 
 source:
   url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 016c915563ee0d180904b9213b8b1d6aa5c8d1aaab21fed5a6d9cabbbde4da96
+  sha256: 1e301add06f8b1240b5484197b221eeac00c77daf25c67ddd559020527f2a6d7
 
 build:
   number: 0
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation -vv
   entry_points:
-    - py2pyi=fastcore.py2pyi:py2pyi
+    - py2pyi = fastcore.py2pyi:py2pyi
+    - replace_wildcards = fastcore.py2pyi:replace_wildcards
   skip: true  # [py<310]
 
 requirements:
   host:
     - pip
     - python
-    - setuptools >=64.0
-    - wheel
+    - setuptools >=64
   run:
     - python
-    - packaging
 
 test:
   imports:
@@ -33,6 +31,7 @@ test:
   commands:
     - pip check
     - py2pyi --help
+    - replace_wildcards --help
   requires:
     - pip
 
@@ -43,13 +42,13 @@ about:
   license_file: LICENSE
   license_family: Apache
   description: |
-    Python is a powerful, dynamic language. Rather than bake everything into 
-    the language, it lets the programmer customize it to make it work for them. 
-    fastcore uses this flexibility to add to Python features inspired by other 
-    languages we've loved, like multiple dispatch from Julia, mixins from Ruby, 
-    and currying, binding, and more from Haskell. It also adds some 
-    “missing features” and clean up some rough edges in the Python standard 
-    library, such as simplifying parallel processing, and bringing ideas 
+    Python is a powerful, dynamic language. Rather than bake everything into
+    the language, it lets the programmer customize it to make it work for them.
+    fastcore uses this flexibility to add to Python features inspired by other
+    languages we've loved, like multiple dispatch from Julia, mixins from Ruby,
+    and currying, binding, and more from Haskell. It also adds some
+    “missing features” and clean up some rough edges in the Python standard
+    library, such as simplifying parallel processing, and bringing ideas
     from NumPy over to Python's list type.
   dev_url: https://github.com/fastai/fastcore
   doc_url: https://fastcore.fast.ai/tour.html
