@@ -24,6 +24,8 @@ requirements:
     - setuptools >=64
   run:
     - python
+  run_constrained:
+    - nbdev >=0.2.39
 
 test:
   imports:
@@ -50,7 +52,7 @@ about:
     “missing features” and clean up some rough edges in the Python standard
     library, such as simplifying parallel processing, and bringing ideas
     from NumPy over to Python's list type.
-  dev_url: https://github.com/fastai/fastcore
+  dev_url: https://github.com/AnswerDotAI/fastcore
   doc_url: https://fastcore.fast.ai/tour.html
 
 extra:
