@@ -25,7 +25,7 @@ requirements:
   run:
     - python
   run_constrained:
-    - nbdev >=0.2.39
+    - nbdev >=3.3.2
 
 test:
   imports:
